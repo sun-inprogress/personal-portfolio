@@ -1,0 +1,128 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Hi, 你的昵称</title>
+    <meta name="description" content="个人主页、作品集、文章和知识库。" />
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <div class="home-top">
+    <header class="site-header">
+      <div class="header-inner">
+        <a class="brand" href="index.html#home">
+          <span class="brand-avatar" aria-hidden="true"></span>
+          <span data-i18n="site.logo">SUN · IN PROGRESS</span>
+        </a>
+        <nav class="nav" aria-label="Primary navigation">
+          <a href="index.html#home" data-i18n="nav.home">首页</a>
+          <a href="index.html#articles" data-i18n="nav.articles">文章</a>
+          <a href="index.html#portfolio" data-i18n="nav.portfolio">作品集</a>
+          <a href="index.html#projects" data-i18n="nav.projects">活动策划</a>
+          <a href="about.html" data-i18n="nav.about">关于我</a>
+          <button class="lang-toggle" type="button" aria-label="切换语言 / Switch language">
+            <span class="translate-mark">中文 / EN</span>
+          </button>
+        </nav>
+      </div>
+    </header>
+
+      <section class="hero" id="home">
+        <div class="hero-copy">
+          <div class="hero-heading">
+            <h1 data-i18n="hero.title">Hi, 你的昵称</h1>
+            <p class="hero-slogan" data-i18n="hero.slogan">写代码是热爱，写到世界充满爱！</p>
+          </div>
+          <p class="hero-desc" data-i18n="hero.desc">
+            你正在浏览一个热爱技术、设计与创意表达的人类主页。这里会持续记录项目、文章、知识笔记和那些认真生活时冒出来的好奇心。
+          </p>
+          <div class="socials" aria-label="常用软件">
+            <img src="assets/software/photoshop.svg" alt="Adobe Photoshop" title="Adobe Photoshop" width="26" height="26">
+            <img src="assets/software/illustrator.svg" alt="Adobe Illustrator" title="Adobe Illustrator" width="26" height="26">
+            <img src="assets/software/coreldraw.svg" alt="CorelDRAW" title="CorelDRAW" width="26" height="26">
+            <img src="assets/software/premiere.svg" alt="Adobe Premiere Pro" title="Adobe Premiere Pro" width="26" height="26">
+            <img src="assets/software/openai.svg" alt="ChatGPT" title="ChatGPT" width="26" height="26">
+          </div>
+        </div>
+        <div class="hero-photo-wrap">
+          <img class="hero-photo" src="assets/avatar-optimized.webp" alt="个人头像插画" width="400" height="400" fetchpriority="high" />
+        </div>
+      </section>
+    </div>
+
+    <main>
+      <div class="section-jump">
+        <a href="#articles">
+          <span data-i18n="articles.jump">我写的文章</span>
+          <span class="down">↓</span>
+        </a>
+      </div>
+
+      <section class="articles-section" id="articles">
+        <h2 data-i18n="articles.title">文章</h2>
+        <p class="taxonomy">
+          <span data-i18n="articles.categoriesLabel">分类：</span>
+          <span id="categoryList"></span>
+        </p>
+        <div class="article-list" id="articleList"></div>
+        <div class="section-action">
+          <a class="view-all-button" href="#" data-i18n="articles.viewAll">查看所有文章</a>
+        </div>
+      </section>
+
+      <section class="simple-section" id="portfolio">
+        <h2>作品集</h2>
+        <p class="taxonomy portfolio-filters" id="portfolioFilters" aria-label="作品分类"></p>
+        <div class="project-grid" id="portfolioGrid"></div>
+      </section>
+      <div class="section-jump">
+        <a href="#projects">
+          <span data-i18n="projects.jump">我的活动策划</span>
+          <span class="down">↓</span>
+        </a>
+      </div>
+
+      <section class="simple-section" id="projects">
+        <h2 data-i18n="projects.title">活动策划</h2>
+        <div class="event-categories" aria-label="活动策划分类">
+          <a class="event-category" href="exhibition-event.html"><img class="event-card-image" src="assets/exhibition/booth.webp" alt="顺天装备上海长时储能展展位" loading="lazy" decoding="async"><span class="event-card-body"><h3>01 / 展会活动</h3><span class="event-focus">项目统筹 · 展会传播 · 现场执行</span><span class="event-card-link">查看案例 ↗</span></span></a>
+          <a class="event-category" href="channel-events.html"><img class="event-card-image" src="assets/channel-events/jinan-room.webp" alt="渠道生态沙龙交流现场" loading="lazy" decoding="async"><span class="event-card-body"><h3>02 / 渠道招商活动</h3><span class="event-focus">招商策划 · 客户邀约 · 销售协同</span><span class="event-card-link">查看案例 ↗</span></span></a>
+          <a class="event-category" href="salon-event.html"><img class="event-card-image" src="assets/salon-event/scene.webp" alt="数智化创新主题沙龙现场" loading="lazy" decoding="async"><span class="event-card-body"><h3>03 / 行业沙龙活动</h3><span class="event-focus">议题策划 · 嘉宾协调 · 活动组织</span><span class="event-card-link">查看案例 ↗</span></span></a>
+        </div>
+        <div class="project-grid" id="projectGrid"></div>
+      </section>
+
+      <div class="section-jump">
+        <a href="#about">
+          <span>关于我</span>
+          <span class="down">↓</span>
+        </a>
+      </div>
+
+      <section class="simple-section home-about" id="about">
+        <h2>关于我</h2>
+        <div class="home-about-content home-about-full">
+          <p class="home-about-copy">你好，我是孙文龙。我有 8 年品牌与市场工作经验，主要面向 To B 业务，参与过品牌传播、市场推广、内容策划、视觉设计和活动组织等工作。从产品宣传册、解决方案 PPT、白皮书，到公众号内容、行业展会和新品发布，我习惯从业务需求出发，梳理信息、确定表达重点，并推动内容和活动落地。我的工作经历涉及物联网、光电子和装备制造等领域。除了日常品牌传播，我也参与过商业计划书、路演材料、销售工具包和技术营销素材的策划与制作。这个网站用来整理我的项目作品、工作思考和 AI 相关学习笔记，记录从想法到成果的过程。</p>
+          <div class="resume-actions" aria-label="简历文件">
+            <a href="assets/sun-wenlong-resume.pdf" target="_blank" rel="noopener noreferrer">预览简历 ↗</a>
+            <a href="assets/sun-wenlong-resume.pdf" download="孙文龙简历.pdf">下载简历 ↓</a>
+            <a href="about.html">了解更多关于我 ↗</a>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer class="footer">
+      <span data-i18n="footer.copy">© 2026</span> <a class="footer-brand" href="index.html#home"><span class="brand-avatar" aria-hidden="true"></span><span>SUN · IN PROGRESS</span></a>
+    </footer>
+
+    <script defer src="data.js"></script>
+    <script defer src="site-data.js"></script>
+    <script defer src="app.js"></script>
+    <script defer src="site-content.js"></script>
+    <script defer src="articles.js"></script>
+    <script defer src="portfolio.js"></script>
+    <script defer src="translation.js"></script>
+  </body>
+</html>

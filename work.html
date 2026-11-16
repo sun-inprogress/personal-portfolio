@@ -1,0 +1,53 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>作品详情</title>
+  <link rel="stylesheet" href="styles.css">
+  <style>
+    .work-detail{max-width:900px;margin:70px auto;padding:0 24px 100px}
+    .work-detail a{color:#777;text-decoration:none}
+    .work-detail h1{font-size:clamp(30px,5vw,48px);margin:45px 0 12px}
+    .work-detail p{line-height:1.9;color:#5e625f;white-space:pre-wrap}
+    .work-detail img{display:block;max-width:100%;height:auto;margin:32px auto;border-radius:8px}
+    .work-gallery img{width:100%;height:auto;margin:22px auto}
+    .work-detail .brochure-generated .brochure-mockup-image{margin:0;border-radius:0}
+    .pdf-section{margin-top:48px;border-top:1px solid #e8eae7;padding-top:28px}
+    .pdf-section h2{font-size:22px;margin:0 0 12px}
+    .pdf-links{display:flex;flex-wrap:wrap;gap:12px;margin:16px 0}
+    .pdf-links a{border:1px solid #d9ded9;border-radius:6px;padding:9px 15px;color:#355b48}
+    .pdf-viewer{width:100%;height:min(75vh,850px);min-height:480px;border:1px solid #e2e6e1;border-radius:8px;background:#f5f6f4}
+    .work-video{display:block;width:100%;height:auto;aspect-ratio:16 / 9;object-fit:contain;background:#111;border-radius:8px;margin:18px 0}.work-video.is-portrait{width:min(100%,42vh);aspect-ratio:9 / 16;margin:18px auto}
+    .case-study .case-kicker,.case-study section>span{font-size:12px;letter-spacing:.12em;color:#929a96}
+    .case-study h1{margin:14px 0}.case-study .case-lead{font-size:18px;max-width:700px}
+    .case-study .case-cover{width:100%;margin:34px 0 50px}
+    .case-study section{border-top:1px solid #e8eae7;padding:42px 0}
+    .case-study h2{font-size:26px;margin:8px 0 20px}
+    .case-columns{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
+    .case-placeholder{background:#f5f6f3;border:1px dashed #d2d8d2;border-radius:10px;min-height:150px;display:grid;place-content:center;text-align:center;color:#858d88;line-height:1.8}
+    .case-placeholder small{font-size:12px}.case-wide{min-height:260px}
+    .ppt-detail-cover{width:100%;aspect-ratio:16/9;object-fit:contain;background:#f3f4f2}.ppt-case .work-gallery img{width:100%;height:auto}.ppt-case .pdf-section{border:0;margin:0;padding:0}
+    @media(max-width:600px){.case-columns{grid-template-columns:1fr}.case-study section{padding:30px 0}}
+    @media(max-width:600px){.work-detail{margin-top:40px}.pdf-viewer{min-height:420px}}
+  </style>
+</head>
+<body>
+  <main class="work-detail">
+    <a href="index.html#projects">← 返回作品</a>
+    <article>
+      <h1 id="title">加载中…</h1><p id="description"></p>
+      <img id="cover" alt="" width="1200" height="900" loading="lazy" decoding="async" hidden><p id="details"></p>
+      <div id="gallery" class="work-gallery"></div>
+      <section id="videoSection" class="pdf-section" hidden><h2>视频作品</h2><video id="videoPlayer" class="work-video" controls preload="metadata" playsinline hidden></video><div class="pdf-links"><a id="videoDownload" download hidden>下载视频</a><a id="videoLink" target="_blank" rel="noopener noreferrer" hidden>打开视频链接 ↗</a></div></section>
+      <section id="pdfSection" class="pdf-section" hidden>
+        <h2>作品文件</h2><p id="pdfName"></p>
+        <div class="pdf-links"><a id="pdfOpen" target="_blank" rel="noopener">打开 PDF</a><a id="pdfDownload" download>下载 PDF</a></div>
+        <iframe id="pdfViewer" class="pdf-viewer" title="PDF 在线预览" width="900" height="700" loading="lazy"></iframe>
+      </section>
+    </article>
+  </main>
+  <script defer src="presentations.js"></script><script defer src="presentation-mockup.js"></script><script defer src="brochures.js"></script><script defer src="brochure-mockup.js"></script><script defer src="foldout-mockup.js"></script><script defer src="editorial.js"></script><script defer src="work.js"></script>
+  <script defer src="translation.js"></script>
+</body>
+</html>

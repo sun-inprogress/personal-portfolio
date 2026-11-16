@@ -1,0 +1,59 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>我的友邻 | 你的昵称</title>
+    <meta name="description" content="我的友邻和推荐链接。" />
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <header class="site-header">
+      <div class="header-inner">
+        <a class="brand" href="index.html#home">
+          <span class="brand-avatar" aria-hidden="true"></span>
+          <span data-i18n="site.logo">SUN · IN PROGRESS</span>
+        </a>
+        <nav class="nav" aria-label="Primary navigation">
+          <a href="index.html#home" data-i18n="nav.home">首页</a>
+          <a href="index.html#articles" data-i18n="nav.articles">文章</a>
+          <a href="index.html#portfolio" data-i18n="nav.portfolio">作品集</a>
+          <a href="index.html#projects" data-i18n="nav.projects">活动策划</a>
+          <a href="about.html" data-i18n="nav.about">关于我</a>
+          <button class="lang-toggle" type="button" aria-label="切换语言 / Switch language">
+            <span class="translate-mark">中文 / EN</span>
+          </button>
+        </nav>
+      </div>
+    </header>
+
+    <main>
+      <div class="section-jump page-jump">
+        <a href="#friends">
+          <span data-i18n="friends.jump">我的友邻</span>
+          <span class="down">↓</span>
+        </a>
+      </div>
+      <section class="simple-section page-section" id="friends">
+        <h1 data-i18n="friends.title">我的友邻</h1>
+        <p class="page-lead" data-i18n="friends.body">
+          这里会放我长期关注的设计灵感、技术博客、独立开发者和知识管理资源。
+        </p>
+        <div class="friend-grid" id="friendGrid"></div>
+        <div class="section-action">
+          <a class="view-all-button" href="#" data-i18n="friends.viewAll">查看所有友邻</a>
+        </div>
+      </section>
+    </main>
+
+    <footer class="footer">
+      <span data-i18n="footer.copy">© 2026</span> <a class="footer-brand" href="index.html#home"><span class="brand-avatar" aria-hidden="true"></span><span>SUN · IN PROGRESS</span></a>
+    </footer>
+
+    <script defer src="data.js"></script>
+    <script defer src="site-data.js"></script>
+    <script defer src="app.js"></script>
+    <script defer src="site-content.js"></script>
+    <script defer src="translation.js"></script>
+  </body>
+</html>

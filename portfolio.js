@@ -1,0 +1,55 @@
+(() => {
+ const categories=[
+  {key:'平面视觉设计',slug:'visual',title:'平面视觉设计',en:'GRAPHIC DESIGN',sub:'产品宣传册 · 产品宣传折页 · 海报及长图文',image:'assets/portfolio-categories/visual.webp',types:['产品宣传册','产品宣传折页','海报及长图文']},
+  {key:'PPT设计',slug:'ppt',title:'PPT与演示设计',en:'PRESENTATION DESIGN',sub:'企业介绍 · 商业路演 · 项目方案',image:'assets/portfolio-categories/ppt.webp',types:['商业计划与路演','企业介绍','市场推广方案']},
+  {key:'活动配套物料',slug:'event',title:'活动视觉设计',en:'EVENT VISUAL DESIGN',sub:'以活动为单位，展示从主视觉到现场物料的完整设计',image:'assets/portfolio-categories/event.webp',types:['活动主视觉','海报与邀请函','背景板与展架','活动手册与其他物料']},
+  {key:'视频剪辑',slug:'video',title:'视频与动态内容',en:'VIDEO & MOTION',sub:'视频剪辑 · 内容策划 · 动态表达',image:'assets/portfolio-categories/video.webp',types:['企业宣传片','产品介绍视频','活动纪实视频','短视频与新媒体','AI视频创作']}
+ ];
+ const grid=document.querySelector('#portfolioGrid');if(!grid)return;
+ const category=categories.find(c=>c.slug===new URLSearchParams(location.search).get('category'));
+ const el=(tag,cls,text)=>{const n=document.createElement(tag);if(cls)n.className=cls;if(text)n.textContent=text;return n};
+ if(!category){grid.replaceChildren();grid.classList.add('portfolio-categories');const covers={visual:'assets/brochures/shuntian/open-mockup.webp',ppt:'assets/portfolio-categories/ppt-selected.webp',event:'assets/event-weinan-2026/main.webp',video:'assets/portfolio-categories/video-selected.webp'};categories.forEach((c,i)=>{const a=el('a','portfolio-category');a.href='portfolio.html?category='+c.slug;let cover;if(c.slug==='event'){cover=el('div','portfolio-category-image category-event-cover');const screen=el('div','category-event-laptop');const img=el('img');img.src=covers.event;img.alt='活动主视觉在电脑样机中的展示';img.loading='lazy';img.decoding='async';screen.append(img);cover.append(screen,el('div','category-event-base'));}else if(c.slug==='visual'||c.slug==='ppt'){cover=el('div','portfolio-category-image category-clean-cover '+(c.slug==='visual'?'category-clean-book':'category-clean-ppt'));const artwork=el('span','category-clean-artwork');const count=c.slug==='ppt'?7:1;for(let j=0;j<count;j++){const img=el('img');img.src=covers[c.slug];img.alt=j===0?c.title+'作品封面':'';img.loading='lazy';img.decoding='async';artwork.append(img)}cover.append(artwork)}else{cover=el('img','portfolio-category-image category-selected-cover');cover.src=covers[c.slug];cover.alt=c.title+'作品封面';cover.loading='lazy';cover.decoding='async';}const copy=el('span','portfolio-category-copy');copy.append(el('strong','',String(i+1).padStart(2,'0')+' '+c.title),el('span','portfolio-category-subtitle',c.sub));a.append(cover,copy);grid.append(a)});return}
+ document.title=category.title+' · 作品集';document.querySelector('#categoryTitle').textContent=category.title;document.querySelector('#categoryEn').textContent=category.en;document.querySelector('#categoryIntro').textContent=category.slug==='visual'?'':category.sub;document.querySelector('#categoryIntro').hidden=category.slug==='visual';
+ let selected=category.slug==='event'?category.types[0]:'全部';const nav=document.querySelector('#categoryFilters');
+ function render(works){nav.replaceChildren();grid.replaceChildren();grid.className='category-results';(['event','video'].includes(category.slug)?[]:['全部',...category.types]).forEach(t=>{const b=el('button','category-filter',t);b.type='button';b.setAttribute('aria-pressed',String(t===selected));b.onclick=()=>{selected=t;render(works)};nav.append(b)});
+ const visualType=w=>{const value=w.categoryType||'';if(category.types.includes(value))return value;const name=w.title||'';if(!value&&/折页/.test(name))return '产品宣传折页';if(!value&&/(宣传册|画册|手册)/.test(name))return '产品宣传册';if(!value&&/(海报|长图|图文)/.test(name))return '海报及长图文';return value};
+ const items=works.filter(w=>!(category.slug==='visual'&&((w.id==='1cf9722b-2dcc-465b-a658-db0dce758907'&&window.portfolioFoldouts?.length)||(['316f7342-dfeb-4c4c-b77f-02bb369a26a7','10f23f89-93f3-4efc-aa1b-d68218bd2c23'].includes(w.id)&&window.portfolioEditorial?.length)))&&w.kind==='portfolio'&&w.workCategory===category.key&&(category.slug!=='visual'||Boolean(w.cover||(w.images||[]).length))&&(category.slug==='event'||selected==='全部'||(category.slug==='visual'?visualType(w):(w.categoryType||w.pptType))===selected));
+ if(category.slug==='ppt'){const priority=w=>w.id==='97b423c7-428f-4309-9ad5-8ccdd55fe513'?0:w.id==='presentation-wind-lidar-report'?0.5:((w.categoryType||w.pptType)==='商业计划与路演'||/商业计划书/.test(w.title||''))?1:2;items.sort((a,b)=>priority(a)-priority(b))}
+ const videoCovers={'0d0c3f75-34e1-4414-9c0e-c4cf8e3a8025':'assets/parking-video-poster.webp','8b261e47-da1a-46d9-bec1-991b51225732':'assets/app-video-poster.webp','f69af604-a071-461c-b03a-ed14c35e991b':'assets/salon-video-poster.webp'};
+ const videoCoverTitles={'0d0c3f75-34e1-4414-9c0e-c4cf8e3a8025':['01','产品演示','智能停充一体化'],'8b261e47-da1a-46d9-bec1-991b51225732':['02','产品演示','移动管理 APP'],'f69af604-a071-461c-b03a-ed14c35e991b':['03','活动纪实','数智化创新沙龙']};
+ const card=(w,featured=false)=>{const a=el('a','case-card'+(featured?' is-featured':'')+(category.slug==='ppt'?' ppt-showcase-card':''));a.href='work.html?id='+encodeURIComponent(w.id);const cover=el('div','case-card-image');if(w.id==='97b423c7-428f-4309-9ad5-8ccdd55fe513')cover.classList.add('plan-cover-frame-card');const mockup=window.makeEditorialCover?.(w)||window.makeBrochureMockup?.(w)||window.makeFoldoutMockup?.(w)||window.makePresentationMockup?.(w,works);if(mockup){cover.classList.add('has-presentation-mockup');cover.append(mockup)}else if(w.cover||(category.slug==='visual'&&w.images?.length)||(category.slug==='video'&&videoCovers[w.id])){const img=el('img');img.src=w.cover||(category.slug==='visual'?w.images[0]:videoCovers[w.id]);img.alt='';img.loading='lazy';if(category.slug==='video'&&w.id==='f69af604-a071-461c-b03a-ed14c35e991b'&&!w.cover)cover.classList.add('video-portrait-cover');cover.append(img)}else if(category.slug!=='video')cover.append(el('span','empty-cover','封面待补充'));if(category.slug==='video'){const info=videoCoverTitles[w.id];if(info){cover.classList.add('video-unified-cover');const label=el('div','video-cover-copy');label.append(el('span','video-cover-kicker','VIDEO / '+info[0]),el('span','video-cover-type',info[1]),el('strong','video-cover-title',info[2]));cover.append(label)}cover.append(el('span','portfolio-play','▶'));}const body=el('div','case-card-body');body.append(el('h3','',w.title));if(w.description)body.append(el('p','',w.description));if(category.slug==='ppt'){const badges=el('div','ppt-badges');[w.pageCount? w.pageCount+'页':'',w.pptType||'演示设计'].filter(Boolean).forEach(t=>badges.append(el('span','',t)));body.append(badges)}else{let meta=[category.slug==='visual'?(['产品宣传册','产品宣传折页','海报及长图文'].includes(visualType(w))?'':visualType(w)):w.categoryType||w.pptType,w.role,w.videoMeta].filter(Boolean).join(' · ');if(meta)body.append(el('small','',meta))}body.append(el('span','case-link',category.slug==='ppt'?'点击查看作品预览 →':category.slug==='video'?'观看作品 →':'查看项目 ↗'));a.append(cover,body);return a};
+ if(category.slug==='event'){
+  const list=el('div','case-grid event-visual-grid');items.forEach(w=>list.append(card(w)));
+  const project=el('a','case-card event-preview-card');project.href='event-visual-preview.html';project.innerHTML='<div class="case-card-image"><img src="assets/event-weinan-2026/main.webp?v=2" alt="液流电池行业标准讨论会主视觉" loading="lazy"></div><div class="case-card-body"><h3>液流电池行业标准研讨会视觉设计</h3><small>活动视觉设计 · 2026</small><span class="case-link">查看项目 ↗</span></div>';list.prepend(project);const second=el('a','case-card');second.href='event-tianjin-2025.html';second.innerHTML='<div class="case-card-image"><img src="assets/event-tianjin-2025/key-visual.webp" alt="天津联通与炼石签约活动主视觉" loading="lazy"></div><div class="case-card-body"><h3>天津联通与炼石签约暨周年庆典活动视觉设计</h3><small>活动视觉设计 · 2025</small><span class="case-link">查看项目 ↗</span></div>';list.append(second);
+  grid.append(list);return;
+ }
+ if(category.slug==='visual'&&selected==='全部'){
+  grid.classList.add('visual-results');
+  const list=el('div','visual-category-grid');
+  category.types.forEach((type,index)=>{
+   if(index===0)list.append(el('div','category-label visual-category-heading','精选项目 / FEATURED PROJECT'));
+   if(index===1)list.append(el('div','category-label visual-category-heading','更多作品 / MORE WORKS'));
+   const subset=items.filter(w=>visualType(w)===type);const first=subset[0];
+   const button=el('button','visual-category-card'+(index===0?' visual-category-featured':''));button.type='button';button.setAttribute('aria-label','查看'+type);
+   const image=el('div','visual-category-image');const src=first&&(first.cover||(first.images||[])[0]);
+   if(src){const mockup=window.makeEditorialCover?.(first)||window.makeBrochureMockup?.(first)||window.makeFoldoutMockup?.(first);if(mockup){image.classList.add('has-brochure-mockup');image.append(mockup)}else{const img=el('img');img.src=src;img.alt='';img.loading='lazy';img.decoding='async';image.append(img)}}else{const empty=el('span','visual-category-blank','暂无作品');image.append(empty)}
+   const info=el('div','visual-category-info');info.append(el('span','visual-category-index',String(index+1).padStart(2,'0')),el('strong','',type),el('span','visual-category-link',subset.length?'查看作品 →':'作品待上传'));
+   button.append(image,info);button.onclick=()=>{selected=type;render(works)};list.append(button);
+  });grid.append(list);return;
+ }
+ if(!items.length){grid.append(el('p','category-empty',category.slug==='visual'?(selected==='全部'?'暂无作品。':'该分类暂无作品。'):'作品正在整理中。'));return}
+
+ if(category.slug==='video'){
+  grid.classList.add('video-results');
+  const featured=items.find(w=>/智能停充一体化/.test(w.title||''))||items[0];
+  const others=items.filter(w=>w!==featured);
+  const mobile=others.findIndex(w=>/移动管理\s*APP/i.test(w.title||''));
+  if(mobile>0)others.unshift(...others.splice(mobile,1));
+  grid.append(el('div','category-label','精选作品 / FEATURED VIDEO'),card(featured,true));
+  if(others.length){const list=el('div','case-grid video-more-grid');others.forEach(w=>list.append(card(w)));grid.append(el('div','category-label','更多作品 / MORE VIDEOS'),list)}
+  return;
+ }
+ if(category.slug==='visual'){grid.classList.add('visual-results');if(selected==='全部'&&items.length>=3){grid.append(el('div','category-label','精选项目 / FEATURED PROJECT'),card(items[0],true));const list=el('div','case-grid');items.slice(1).forEach(w=>list.append(card(w)));grid.append(el('div','category-label','更多作品 / MORE WORKS'),list)}else{const list=el('div','case-grid');items.forEach(w=>list.append(card(w)));grid.append(list)}}else{const list=el('div',category.slug==='ppt'?'case-list':'case-grid');items.forEach(w=>list.append(card(w)));grid.append(list)}
+ }
+ fetch('data/works.json').then(r=>{if(!r.ok)throw Error();return r.json()}).then(works=>render([...((category.slug==='visual'&&window.portfolioBrochures)||[]),...((category.slug==='visual'&&window.portfolioFoldouts)||[]),...((category.slug==='visual'&&window.portfolioEditorial)||[]),...((category.slug==='ppt'&&window.portfolioReportWorks)||[]),...works])).catch(()=>grid.append(el('p','category-empty','作品加载失败，请稍后重试。')));
+})();
