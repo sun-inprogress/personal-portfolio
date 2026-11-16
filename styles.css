@@ -1102,3 +1102,15 @@ main,.home-top .hero,.footer{max-width:calc(100% - 48px)}
 
 .radar-presentation-grid{width:100%;height:100%;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:2.3%;align-content:center;padding:6%;background:#d0d1d2}
 .radar-presentation-grid img,.case-card-image .radar-presentation-grid img,.work-detail .radar-presentation-grid img{display:block;width:100%;height:auto;aspect-ratio:16/9;object-fit:contain;margin:0;border-radius:0;background:white;box-shadow:0 3px 8px rgba(0,0,0,.16)}
+
+/* Keep cover artwork from determining the size of its responsive card. */
+.category-clean-cover .category-clean-artwork{position:absolute;left:50%;top:50%;height:100%;width:auto;max-width:100%;transform:translate(-50%,-50%)}
+.case-card-image,.visual-category-image{position:relative;min-width:0;grid-template-columns:minmax(0,1fr);grid-template-rows:minmax(0,1fr)}
+.case-card-image > img,.visual-category-image > img{position:absolute;inset:0;width:100%;height:100%}
+@media(max-width:700px){
+  .portfolio-categories,.event-categories,.case-grid,.visual-category-grid{grid-template-columns:minmax(0,1fr)}
+  .portfolio-category,.event-category,.case-card,.visual-category-card,.ch-card{min-width:0;max-width:100%}
+  .portfolio-category-image,.case-card-image,.visual-category-image,.event-card-image{max-width:100%}
+  .category-header h1,.work-detail h1,.ch-page h1,.project h1,.case h1{overflow-wrap:anywhere}
+  .work-detail iframe,.work-detail video,.work-detail img,.ch-page img,.project img{max-width:100%}
+}
