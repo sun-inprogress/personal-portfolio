@@ -6,10 +6,13 @@
   {id:'editorial-irain-time',title:'iRain TIME 电子月刊',description:'电子月刊 · 封面与传播',background:'这份电子月刊以企业月度内容为主题，采用封面和二维码入口的形式进行线上传播。',approach:'以蓝色建筑画面和刊物名称构建封面识别，在传播页面中安排刊物信息与二维码，方便移动端查看。',layout:'single',images:['assets/editorial/irain-time-share.png','assets/editorial/irain-time-issue-6.jpg']}
  ];
  window.portfolioEditorial=works.map(w=>({...w,kind:'portfolio',workCategory:'平面视觉设计',categoryType:'海报及长图文',cover:w.images[0]}));
+ const originalEditorialImages=new Set(works.flatMap(w=>w.images));
+ const variant=(src,kind)=>'assets/optimized/'+src.split('/').pop().replace(/\.[^.]+$/,'')+'-'+kind+'.webp';
+ window.editorialDisplayImage=src=>originalEditorialImages.has(src)&&src.startsWith('media/')?variant(src,'display'):src;
  window.makeEditorialCover=work=>{
   if(!work?.id?.startsWith('editorial-'))return null;
   const root=document.createElement('div');root.className='editorial-cover'+(work.id==='editorial-irain-time'?' is-magazine':work.layout==='single'?' is-single':'');root.setAttribute('role','img');root.setAttribute('aria-label',work.title+'作品预览');
-  work.images.slice(0,work.id==='editorial-irain-time'?2:work.layout==='single'?1:4).forEach(src=>{const cell=document.createElement('div');cell.className='editorial-cover-cell';const img=document.createElement('img');img.src=src;img.alt='';img.loading='lazy';img.decoding='async';cell.append(img);root.append(cell)});return root;
+  work.images.slice(0,work.id==='editorial-irain-time'?2:work.layout==='single'?1:4).forEach(src=>{const cell=document.createElement('div');cell.className='editorial-cover-cell';const img=document.createElement('img');img.src=originalEditorialImages.has(src)?variant(src,'preview'):src;img.alt='';img.loading='lazy';img.decoding='async';cell.append(img);root.append(cell)});return root;
  };
 
 })();
